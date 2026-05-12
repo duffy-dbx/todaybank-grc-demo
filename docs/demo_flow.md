@@ -4,15 +4,40 @@ Step-by-step click sequence with timing. Use alongside `talk_track.md`.
 
 ---
 
+## Live assets on `e2-demo-field-eng`
+
+| Asset | Link |
+|---|---|
+| Catalog | [`todaybank_grc_demo`](https://e2-demo-field-eng.cloud.databricks.com/explore/data/todaybank_grc_demo) |
+| Dashboard | [TodayBank GRC Operations Hub](https://e2-demo-field-eng.cloud.databricks.com/dashboardsv3/01f14e33aa4f1eac9fdbd4728db47513) (id `01f14e33aa4f1eac9fdbd4728db47513`) |
+| Genie space | [TodayBank GRC Operations Hub](https://e2-demo-field-eng.cloud.databricks.com/genie/rooms/01f14e4097ff1ce48bf2520f456ef9f6) (id `01f14e4097ff1ce48bf2520f456ef9f6`) |
+| Warehouse | `Shared Unity Catalog Serverless` (id `4b9b953939869799`) |
+| Workspace folder | `/Workspace/Users/duffy.walsh@databricks.com/todaybank_grc_demo` |
+
+Curated Gold views the Genie space points at:
+- [`gold.genie_customer_360`](https://e2-demo-field-eng.cloud.databricks.com/explore/data/todaybank_grc_demo/gold/genie_customer_360)
+- [`gold.genie_aml_alerts`](https://e2-demo-field-eng.cloud.databricks.com/explore/data/todaybank_grc_demo/gold/genie_aml_alerts)
+- [`gold.genie_hmda`](https://e2-demo-field-eng.cloud.databricks.com/explore/data/todaybank_grc_demo/gold/genie_hmda)
+- [`gold.genie_complaints`](https://e2-demo-field-eng.cloud.databricks.com/explore/data/todaybank_grc_demo/gold/genie_complaints)
+
+Files used during the talk:
+- `sql/dashboard_queries.sql` – source queries behind the dashboard tiles
+- `sql/demo_live_unstructured.sql` – three cells to paste for the AI segment (Act 4)
+- `sql/genie_space_setup.sql` – view DDL + Genie instructions/sample-questions text
+
+---
+
 ## Setup checklist (do this 30 min before the demo)
 
 - [ ] Run `notebooks/00_setup_and_generate_data.py` end-to-end
 - [ ] Start the Lakeflow Pipeline from `notebooks/01_lakeflow_pipeline.py` and verify all tables built
-- [ ] Run `notebooks/02_ai_classify_and_extract.py` end-to-end (silver.complaints_classified must exist)
+- [ ] Run `notebooks/02_ai_classify_and_extract.py` end-to-end (`silver.complaints_classified` must exist)
 - [ ] Run `notebooks/03_aml_model_mlflow.py` (model must be registered with `@champion` alias)
 - [ ] Run the dynamic-view cell in `notebooks/04_governance_walkthrough.py`
-- [ ] Import `dashboards/todaybank_grc_dashboard.lvdash.json`
-- [ ] Create Genie space using `sql/genie_space_setup.sql`
+- [x] Dashboard imported – open it once to warm the cache: <https://e2-demo-field-eng.cloud.databricks.com/dashboardsv3/01f14e33aa4f1eac9fdbd4728db47513>
+- [x] Genie space created – open it once to warm the cache: <https://e2-demo-field-eng.cloud.databricks.com/genie/rooms/01f14e4097ff1ce48bf2520f456ef9f6>
+- [ ] In the Genie space settings, paste General Instructions and 5 Sample Questions from `sql/genie_space_setup.sql` (lines 89–101). _Public API doesn't expose these fields yet._
+- [ ] Start the `Shared Unity Catalog Serverless` warehouse so Act 4's live `ai_classify` doesn't cold-start
 - [ ] Open all 6 tabs in the order listed in `talk_track.md` Pre-flight
 - [ ] Test the audit-log query and the lineage popup – sometimes lineage takes ~5 min to populate after a fresh run
 
@@ -29,11 +54,11 @@ Step-by-step click sequence with timing. Use alongside `talk_track.md`.
 - Don't show anything yet – let them visualize the pain
 
 ### 0:05 – Act 2: Governed Foundation (Catalog Explorer)
-- **0:05** – Catalog Explorer at `todaybank_grc_demo` (catalog tree visible)
-- **0:06** – Click `bronze.raw_customers` → Tags tab → highlight `PII` and `regulatory_HMDA` tags
+- **0:05** – [Catalog Explorer at `todaybank_grc_demo`](https://e2-demo-field-eng.cloud.databricks.com/explore/data/todaybank_grc_demo) (catalog tree visible)
+- **0:06** – Click [`bronze.raw_customers`](https://e2-demo-field-eng.cloud.databricks.com/explore/data/todaybank_grc_demo/bronze/raw_customers) → Tags tab → highlight `PII` and `regulatory_HMDA` tags
 - **0:07** – Sample Data tab → run `SELECT * FROM todaybank_grc_demo.silver.customers_v LIMIT 5;`
-- **0:08** – Click `gold.aml_alerts` → Lineage tab → click through to source
-- **0:09** – Switch to `04_governance_walkthrough.py` → run the audit-log cell
+- **0:08** – Click [`gold.aml_alerts`](https://e2-demo-field-eng.cloud.databricks.com/explore/data/todaybank_grc_demo/gold/aml_alerts) → Lineage tab → click through to source
+- **0:09** – Switch to `notebooks/04_governance_walkthrough.py` → run the audit-log cell
 
 ### 0:10 – Act 3: Pipelines That Just Work (Lakeflow Pipeline)
 - **0:10** – Open the Lakeflow Pipeline DAG view
@@ -43,23 +68,24 @@ Step-by-step click sequence with timing. Use alongside `talk_track.md`.
 - **0:16** – Mention streaming (don't switch – just point at the keyword)
 
 ### 0:17 – Act 4: AI You Can Trust (SQL editor → MLflow → Catalog Explorer)
-- **0:17** – SQL editor: live `ai_classify` on raw complaints (10 rows)
-- **0:19** – Open `silver.complaints_classified` → show theme + severity columns
-- **0:20** – `gold.kyc_pep_matches` → 2 PEP rows visible
-- **0:21** – MLflow registry → `todaybank_grc_demo.gold.aml_risk_model`
+- **0:17** – SQL editor: paste **Cell 1** from `sql/demo_live_unstructured.sql` – live `ai_classify` on raw complaints (10 rows)
+- **0:18** – Paste **Cell 2** – the full 500-row population already classified
+- **0:19** – Open [`silver.complaints_classified`](https://e2-demo-field-eng.cloud.databricks.com/explore/data/todaybank_grc_demo/silver/complaints_classified) → show theme + severity columns
+- **0:20** – Paste **Cell 3** OR open [`gold.kyc_pep_matches`](https://e2-demo-field-eng.cloud.databricks.com/explore/data/todaybank_grc_demo/gold/kyc_pep_matches) → 2 PEP rows visible
+- **0:21** – MLflow registry → [`todaybank_grc_demo.gold.aml_risk_model`](https://e2-demo-field-eng.cloud.databricks.com/explore/data/models/todaybank_grc_demo/gold/aml_risk_model)
 - **0:22** – Model description tab → SR 11-7 documentation visible
 - **0:23** – Lineage tab on the model
 - **0:24** – `@champion` alias → mention challenger pattern
-- **0:24:30** – Catalog Explorer → `gold.aml_risk_scores` → Quality tab → Lakehouse Monitoring
+- **0:24:30** – Catalog Explorer → [`gold.aml_risk_scores`](https://e2-demo-field-eng.cloud.databricks.com/explore/data/todaybank_grc_demo/gold/aml_risk_scores) → Quality tab → Lakehouse Monitoring
 
 ### 0:25 – Act 5: Self-service for the Business (AI/BI Dashboard → Genie)
-- **0:25** – TodayBank GRC Operations Hub dashboard → 4 KPI tiles
+- **0:25** – [TodayBank GRC Operations Hub dashboard](https://e2-demo-field-eng.cloud.databricks.com/dashboardsv3/01f14e33aa4f1eac9fdbd4728db47513) → 4 KPI tiles
 - **0:26** – Hover KPI → "View lineage"
-- **0:27** – Click Fair Lending heatmap
-- **0:28** – Switch to Genie space
-- **0:28:30** – Type: "Show me top 10 customers by AML alert dollar amount this quarter"
-- **0:29:30** – Click "Show SQL" – emphasize transparency
-- **0:30** – Type follow-up: "How does the loan approval rate for home purchase compare across races?"
+- **0:27** – Click the Fair Lending heatmap
+- **0:28** – Switch to the [Genie space](https://e2-demo-field-eng.cloud.databricks.com/genie/rooms/01f14e4097ff1ce48bf2520f456ef9f6)
+- **0:28:30** – Type: *"Show me top 10 customers by AML alert dollar amount this quarter"* (resolves against `gold.genie_customer_360` + `gold.genie_aml_alerts`)
+- **0:29:30** – Click "Show SQL" – emphasize transparency; point out it's querying the curated `genie_*` views, not raw bronze
+- **0:30** – Type follow-up: *"How does the loan approval rate for home purchase compare across races?"* (resolves against `gold.genie_hmda`)
 
 ### 0:30 – Close + Q&A
 - Three pillars · one platform · one audit trail
@@ -72,11 +98,12 @@ Step-by-step click sequence with timing. Use alongside `talk_track.md`.
 
 | Audience hot-button | Where to detour |
 |---|---|
-| "What about regulatory reporting?" | Open the `silver.transactions` table → show how a Call Report aggregation would look (1-min mock SQL) |
+| "What about regulatory reporting?" | Open [`silver.transactions`](https://e2-demo-field-eng.cloud.databricks.com/explore/data/todaybank_grc_demo/silver/transactions) → show how a Call Report aggregation would look (1-min mock SQL) |
 | "How do you handle data quality issues?" | Lakeflow expectations – re-run the pipeline with a forced bad row |
 | "We use Snowflake today – can we coexist?" | Lakehouse Federation tab in Catalog Explorer – show querying a foreign Snowflake table |
 | "We're worried about cost" | Open System Tables → `system.billing.usage` → filter to demo workspace → show DBU spend |
 | "Show me the model card / SR 11-7 paperwork" | MLflow → model description → mention auto-generated model cards |
+| "Can Genie see PII?" | Open [`gold.genie_customer_360`](https://e2-demo-field-eng.cloud.databricks.com/explore/data/todaybank_grc_demo/gold/genie_customer_360) DDL – no SSN/phone/email/DOB columns, by design |
 
 ---
 
@@ -85,7 +112,7 @@ Step-by-step click sequence with timing. Use alongside `talk_track.md`.
 | Symptom | Recovery |
 |---|---|
 | Lakeflow pipeline shows red | Don't dwell – say "this is the kind of failure that won't get past expectations into production" and move on |
-| `ai_classify` is slow / errors | Switch to the pre-populated `silver.complaints_classified` table |
+| `ai_classify` is slow / errors | Switch to the pre-populated [`silver.complaints_classified`](https://e2-demo-field-eng.cloud.databricks.com/explore/data/todaybank_grc_demo/silver/complaints_classified) table |
 | Genie returns nonsense | Refresh; rephrase question; or switch to dashboard. Genie quality has improved a lot but it's still LLM-paced |
 | Lineage popup is empty | Wait 30 sec and refresh – if still empty, click into Catalog Explorer Lineage tab manually |
 | Dashboard is slow | Mention serverless cold-start; use the moment to monologue about cost economics |
