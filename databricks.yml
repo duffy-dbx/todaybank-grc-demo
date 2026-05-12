@@ -1,0 +1,79 @@
+# Databricks Asset Bundle for the Axos GRC Operations Hub demo.
+#
+# Deploy:    databricks bundle deploy --target dev
+# Run setup: databricks bundle run setup_job --target dev
+
+bundle:
+  name: axos-grc-demo
+
+variables:
+  catalog:
+    description: "Unity Catalog to deploy the demo into"
+    default: "axos_grc_demo"
+  warehouse_id:
+    description: "Serverless SQL warehouse ID for SQL tasks"
+    default: ""
+
+resources:
+  jobs:
+    setup_job:
+      name: "Axos GRC Demo — Setup & Generate Data"
+      tasks:
+        - task_key: setup_data
+          notebook_task:
+            notebook_path: ./notebooks/00_setup_and_generate_data.py
+            base_parameters:
+              catalog: ${var.catalog}
+
+    pipeline_kickoff:
+      name: "Axos GRC Demo — Run Pipeline + AI + ML"
+      tasks:
+        - task_key: run_pipeline
+          pipeline_task:
+            pipeline_id: ${resources.pipelines.grc_pipeline.id}
+        - task_key: ai_functions
+          depends_on:
+            - task_key: run_pipeline
+          notebook_task:
+            notebook_path: ./notebooks/02_ai_classify_and_extract.py
+            base_parameters:
+              catalog: ${var.catalog}
+        - task_key: aml_model
+          depends_on:
+            - task_key: ai_functions
+          notebook_task:
+            notebook_path: ./notebooks/03_aml_model_mlflow.py
+            base_parameters:
+              catalog: ${var.catalog}
+        - task_key: governance
+          depends_on:
+            - task_key: aml_model
+          notebook_task:
+            notebook_path: ./notebooks/04_governance_walkthrough.py
+            base_parameters:
+              catalog: ${var.catalog}
+
+  pipelines:
+    grc_pipeline:
+      name: "axos-grc-demo-pipeline"
+      target: ${var.catalog}
+      catalog: ${var.catalog}
+      libraries:
+        - notebook:
+            path: ./notebooks/01_lakeflow_pipeline.py
+      configuration:
+        CATALOG: ${var.catalog}
+      serverless: true
+      photon: true
+
+targets:
+  dev:
+    mode: development
+    default: true
+    workspace:
+      host: https://your-workspace.cloud.databricks.com  # replace at deploy time
+
+  prod:
+    mode: production
+    workspace:
+      host: https://your-workspace.cloud.databricks.com  # replace at deploy time
