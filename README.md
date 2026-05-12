@@ -40,8 +40,8 @@ A 100-level Databricks demo for **TodayBank Bank** showcasing the Data Intellige
         │                                                            │
         ▼                                                            ▼
   ┌──────────────────────────────────────────────────────────────────────┐
-  │              LAKEFLOW PIPELINE  (Bronze → Silver → Gold)              │
-  │   schema enforcement · expectations · streaming · CDC                 │
+  │              LAKEFLOW PIPELINE  (Bronze → Silver → Gold)             │
+  │   schema enforcement · expectations · streaming · CDC                │
   └──────────────────────────────────────────────────────────────────────┘
         │                  │                │                      │
         ▼                  ▼                ▼                      ▼
@@ -55,16 +55,14 @@ A 100-level Databricks demo for **TodayBank Bank** showcasing the Data Intellige
 
                           ┌──────────────────────────────────────┐
                           │      MLflow + Lakehouse Monitoring   │
-                          │   AML model · drift · SR 11-7 docs   │
+                          │   AML model · drift · SR 26-2 docs   │
                           └──────────────────────────────────────┘
 
-             ┌────────────────────────────────────────────────────────┐
-             │                  PERSONA DEMO OVERLAYS                 │
-             │  Data Engineer (4 min) ── pipeline code · DABs ·      │
-             │    lineage · System Tables                             │
-             │  Marketing Analyst (4 min) ── Genie segments ·        │
-             │    complaint themes · safe self-service               │
-             └────────────────────────────────────────────────────────┘
+ ┌──────────────────────────────────────────────────────────────────────────┐
+ │                        PERSONA DEMO OVERLAYS                             │
+ │ Data Engineer: pipeline code · DABs · lineage · System Tables            │
+ │ Marketing Analyst: Genie segments · complaint themes · safe self-service │
+ └──────────────────────────────────────────────────────────────────────────┘
 ```
 
 ---
