@@ -1,6 +1,6 @@
-# Axos GRC Operations Hub — Databricks Demo
+# TodayBank GRC Operations Hub – Databricks Demo
 
-A 100-level Databricks demo for **Axos Bank** showcasing the Data Intelligence Platform across **Governance, Risk, and Compliance (GRC)** use cases. End-to-end runtime: ~15 minutes for the data setup + pipeline; demo presentation ~30 minutes.
+A 100-level Databricks demo for **TodayBank Bank** showcasing the Data Intelligence Platform across **Governance, Risk, and Compliance (GRC)** use cases. End-to-end runtime: ~15 minutes for the data setup + pipeline; demo presentation ~30 minutes.
 
 ---
 
@@ -13,14 +13,15 @@ A 100-level Databricks demo for **Axos Bank** showcasing the Data Intelligence P
 
 ## Storyline (one-liner)
 
-*"Axos's Risk Officer needs a single, governed view across structured transactions, semi-structured KYC documents, and unstructured customer complaints — without standing up three different tools, three different governance models, and three different AI black boxes."*
+*"TodayBank's Risk Officer needs a single, governed view across structured transactions, semi-structured KYC documents, and unstructured customer complaints – without standing up three different tools, three different governance models, and three different AI black boxes. The same platform serves the data engineer who builds those pipelines and the marketing analyst who mines customer insights from them – one governance model, every persona."*
 
 ## What this demo proves
 
 1. **One platform** spans batch + streaming + ML + GenAI + BI
 2. **One governance layer** (Unity Catalog) covers tables, files, models, dashboards, and AI agents
-3. **AI is auditable** — model registry, lineage from dashboard widget to source row, drift monitoring, audit logs in system tables
-4. **Business users self-serve** safely via Genie — with the SQL shown for transparency
+3. **AI is auditable** – model registry, lineage from dashboard widget to source row, drift monitoring, audit logs in system tables
+4. **Business users self-serve** safely via Genie – with the SQL shown for transparency
+5. **Every persona is served** – the data engineer who builds the pipelines, the risk officer who monitors them, and the marketing analyst who mines customer insights from them all work from the same governed data layer
 
 ---
 
@@ -56,6 +57,14 @@ A 100-level Databricks demo for **Axos Bank** showcasing the Data Intelligence P
                           │      MLflow + Lakehouse Monitoring   │
                           │   AML model · drift · SR 11-7 docs   │
                           └──────────────────────────────────────┘
+
+             ┌────────────────────────────────────────────────────────┐
+             │                  PERSONA DEMO OVERLAYS                 │
+             │  Data Engineer (4 min) ── pipeline code · DABs ·      │
+             │    lineage · System Tables                             │
+             │  Marketing Analyst (4 min) ── Genie segments ·        │
+             │    complaint themes · safe self-service               │
+             └────────────────────────────────────────────────────────┘
 ```
 
 ---
@@ -63,7 +72,7 @@ A 100-level Databricks demo for **Axos Bank** showcasing the Data Intelligence P
 ## Repo layout
 
 ```
-axos-grc-demo/
+todaybank-grc-demo/
 ├── README.md                          ← this file
 ├── databricks.yml                     ← DAB deployment config
 ├── notebooks/
@@ -77,7 +86,7 @@ axos-grc-demo/
 │   ├── genie_space_setup.sql          ← Curated views + instructions for Genie
 │   └── governance_audit.sql           ← Audit log queries (system.access.audit)
 ├── dashboards/
-│   └── axos_grc_dashboard.lvdash.json ← Lakeview dashboard definition
+│   └── todaybank_grc_dashboard.lvdash.json ← Lakeview dashboard definition
 └── docs/
     ├── talk_track.md                  ← Speaker notes by act
     ├── demo_flow.md                   ← Click-through flow with timing
@@ -89,7 +98,7 @@ axos-grc-demo/
 ## Prerequisites
 
 - Databricks workspace with **Unity Catalog** enabled
-- Permissions to create a catalog (or use an existing one — set `CATALOG` in `notebooks/00_setup_and_generate_data.py`)
+- Permissions to create a catalog (or use an existing one – set `CATALOG` in `notebooks/00_setup_and_generate_data.py`)
 - Access to **Foundation Model APIs** for AI Functions (`databricks-meta-llama-3-3-70b-instruct` or workspace default)
 - A **serverless SQL warehouse** for the dashboard
 - Cluster: 15.4 LTS or later (Serverless preferred)
@@ -98,20 +107,20 @@ axos-grc-demo/
 
 ```bash
 # 1. Clone or copy this repo into your workspace
-databricks workspace import-dir ./axos-grc-demo /Workspace/Demos/axos-grc-demo
+databricks workspace import-dir ./todaybank-grc-demo /Workspace/Demos/todaybank-grc-demo
 
 # 2. Run the setup notebook (creates catalog + populates sample data, ~5 min)
 #    Open: 00_setup_and_generate_data.py and run it
 
 # 3. Deploy and run the Lakeflow Pipeline
-#    Open: 01_lakeflow_pipeline.py — wire it up as a DLT pipeline
+#    Open: 01_lakeflow_pipeline.py – wire it up as a DLT pipeline
 
 # 4. Run the AI + ML notebooks (in any order)
 #    02_ai_classify_and_extract.py
 #    03_aml_model_mlflow.py
 
 # 5. Import the dashboard
-databricks dashboards import dashboards/axos_grc_dashboard.lvdash.json
+databricks dashboards import dashboards/todaybank_grc_dashboard.lvdash.json
 
 # 6. (Optional) Create a Genie space pointing at the gold schema
 #    See sql/genie_space_setup.sql for curated views
@@ -120,7 +129,7 @@ databricks dashboards import dashboards/axos_grc_dashboard.lvdash.json
 Or with **Databricks Asset Bundles** (recommended):
 
 ```bash
-cd axos-grc-demo
+cd todaybank-grc-demo
 databricks bundle deploy --target dev
 databricks bundle run setup_job --target dev
 ```
@@ -136,7 +145,7 @@ databricks bundle run setup_job --target dev
 | **3. Pipelines That Just Work** | 7 min | Lakeflow Pipeline DAG, expectations, schema | Replace SSIS/Informatica |
 | **4. AI You Can Trust** | 8 min | AI Functions, MLflow registry, drift monitoring | SR 11-7 ready |
 | **5. Self-service for Business** | 5 min | AI/BI dashboard, Genie Q&A with SQL shown | Killer for BI mod UCO |
-| **Q&A** | 5–10 min | — | — |
+| **Q&A** | 5–10 min | – | – |
 
 Full speaker notes: [`docs/talk_track.md`](docs/talk_track.md). Click-through: [`docs/demo_flow.md`](docs/demo_flow.md).
 

@@ -1,15 +1,15 @@
-# Databricks Asset Bundle for the Axos GRC Operations Hub demo.
+# Databricks Asset Bundle for the TodayBank GRC Operations Hub demo.
 #
 # Deploy:    databricks bundle deploy --target dev
 # Run setup: databricks bundle run setup_job --target dev
 
 bundle:
-  name: axos-grc-demo
+  name: todaybank-grc-demo
 
 variables:
   catalog:
     description: "Unity Catalog to deploy the demo into"
-    default: "axos_grc_demo"
+    default: "todaybank_grc_demo"
   warehouse_id:
     description: "Serverless SQL warehouse ID for SQL tasks"
     default: ""
@@ -17,7 +17,7 @@ variables:
 resources:
   jobs:
     setup_job:
-      name: "Axos GRC Demo — Setup & Generate Data"
+      name: "TodayBank GRC Demo – Setup & Generate Data"
       tasks:
         - task_key: setup_data
           notebook_task:
@@ -26,7 +26,7 @@ resources:
               catalog: ${var.catalog}
 
     pipeline_kickoff:
-      name: "Axos GRC Demo — Run Pipeline + AI + ML"
+      name: "TodayBank GRC Demo – Run Pipeline + AI + ML"
       tasks:
         - task_key: run_pipeline
           pipeline_task:
@@ -55,7 +55,7 @@ resources:
 
   pipelines:
     grc_pipeline:
-      name: "axos-grc-demo-pipeline"
+      name: "todaybank-grc-demo-pipeline"
       target: ${var.catalog}
       catalog: ${var.catalog}
       libraries:

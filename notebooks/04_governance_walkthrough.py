@@ -1,18 +1,18 @@
 # Databricks notebook source
 # MAGIC %md
-# MAGIC # 04 · Governance Walkthrough — Lineage, Masking, Audit
+# MAGIC # 04 · Governance Walkthrough – Lineage, Masking, Audit
 # MAGIC
-# MAGIC The "Act 2" notebook. Doesn't build new tables — it surfaces what UC already gives you for free, plus creates dynamic views that mask PII based on group membership.
+# MAGIC The "Act 2" notebook. Doesn't build new tables – it surfaces what UC already gives you for free, plus creates dynamic views that mask PII based on group membership.
 # MAGIC
 # MAGIC **Demo points:**
 # MAGIC 1. Catalog tree + tags (already created in notebook 00)
-# MAGIC 2. Lineage from a Gold widget back to a source row — Catalog Explorer click-through
+# MAGIC 2. Lineage from a Gold widget back to a source row – Catalog Explorer click-through
 # MAGIC 3. Dynamic views: SSN visible to `risk_analysts` group, masked for everyone else
 # MAGIC 4. Audit queries against `system.access.audit`
 
 # COMMAND ----------
 
-dbutils.widgets.text("catalog", "axos_grc_demo", "Catalog")
+dbutils.widgets.text("catalog", "todaybank_grc_demo", "Catalog")
 dbutils.widgets.text("privileged_group", "risk_analysts", "Group allowed to see PII")
 CATALOG = dbutils.widgets.get("catalog")
 PRIV_GROUP = dbutils.widgets.get("privileged_group")
@@ -87,7 +87,7 @@ except Exception as e:
 # MAGIC %md
 # MAGIC ## Audit log queries
 # MAGIC
-# MAGIC These run against the **real** `system.access.audit` table — not the synthetic `bronze.raw_audit_events` we generated.
+# MAGIC These run against the **real** `system.access.audit` table – not the synthetic `bronze.raw_audit_events` we generated.
 
 # COMMAND ----------
 
@@ -101,7 +101,7 @@ except Exception as e:
 # MAGIC FROM system.access.audit
 # MAGIC WHERE service_name = 'unityCatalog'
 # MAGIC   AND action_name IN ('getTable', 'queryTable')
-# MAGIC   AND request_params.full_name_arg LIKE 'axos_grc_demo.silver.customers%'
+# MAGIC   AND request_params.full_name_arg LIKE 'todaybank_grc_demo.silver.customers%'
 # MAGIC   AND event_time > current_date() - INTERVAL 7 DAYS
 # MAGIC ORDER BY event_time DESC
 # MAGIC LIMIT 50
@@ -109,7 +109,7 @@ except Exception as e:
 # COMMAND ----------
 
 # MAGIC %sql
-# MAGIC -- AI Function invocations — every call to ai_classify, ai_extract, ai_query is audited
+# MAGIC -- AI Function invocations – every call to ai_classify, ai_extract, ai_query is audited
 # MAGIC SELECT
 # MAGIC   event_time,
 # MAGIC   user_identity.email AS user_email,
@@ -124,7 +124,7 @@ except Exception as e:
 # COMMAND ----------
 
 # MAGIC %md
-# MAGIC ## Lineage demonstration — programmatic
+# MAGIC ## Lineage demonstration – programmatic
 # MAGIC
 # MAGIC In the live demo, click through Catalog Explorer for the visual. For automation, query the lineage system tables.
 
@@ -136,8 +136,8 @@ except Exception as e:
 # MAGIC   target_table_full_name,
 # MAGIC   event_time
 # MAGIC FROM system.access.table_lineage
-# MAGIC WHERE source_table_catalog = 'axos_grc_demo'
-# MAGIC    OR target_table_catalog = 'axos_grc_demo'
+# MAGIC WHERE source_table_catalog = 'todaybank_grc_demo'
+# MAGIC    OR target_table_catalog = 'todaybank_grc_demo'
 # MAGIC ORDER BY event_time DESC
 # MAGIC LIMIT 20
 
@@ -146,4 +146,4 @@ except Exception as e:
 # MAGIC %md
 # MAGIC ## Done
 # MAGIC
-# MAGIC Notebooks complete. Now import the dashboard from `dashboards/axos_grc_dashboard.lvdash.json` and create a Genie space using the views set up in `sql/genie_space_setup.sql`.
+# MAGIC Notebooks complete. Now import the dashboard from `dashboards/todaybank_grc_dashboard.lvdash.json` and create a Genie space using the views set up in `sql/genie_space_setup.sql`.

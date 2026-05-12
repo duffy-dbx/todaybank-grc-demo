@@ -1,6 +1,6 @@
 # Databricks notebook source
 # MAGIC %md
-# MAGIC # 01 · Lakeflow Pipeline — Bronze → Silver → Gold
+# MAGIC # 01 · Lakeflow Pipeline – Bronze → Silver → Gold
 # MAGIC
 # MAGIC Wire this notebook up as a **Delta Live Tables / Lakeflow Pipeline**. It declaratively builds the GRC data marts from the bronze tables created in notebook 00.
 # MAGIC
@@ -15,12 +15,12 @@
 import dlt
 from pyspark.sql import functions as F
 
-CATALOG = spark.conf.get("CATALOG", "axos_grc_demo")
+CATALOG = spark.conf.get("CATALOG", "todaybank_grc_demo")
 
 # COMMAND ----------
 
 # MAGIC %md
-# MAGIC ## Silver layer — cleansed, conformed, PII-aware
+# MAGIC ## Silver layer – cleansed, conformed, PII-aware
 
 # COMMAND ----------
 
@@ -89,7 +89,7 @@ def silver_complaints():
 # COMMAND ----------
 
 # MAGIC %md
-# MAGIC ## Gold layer — business-ready marts
+# MAGIC ## Gold layer – business-ready marts
 
 # COMMAND ----------
 

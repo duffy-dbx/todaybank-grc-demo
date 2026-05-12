@@ -5,20 +5,20 @@
 # COMMAND ----------
 
 # MAGIC %md
-# MAGIC # 03 · AML Risk Model — MLflow + Model Registry
+# MAGIC # 03 · AML Risk Model – MLflow + Model Registry
 # MAGIC
 # MAGIC Trains a simple AML risk-scoring model on transaction features and registers it to **Unity Catalog Model Registry** with full lineage to source tables.
 # MAGIC
 # MAGIC **Demo points (Model Risk Management / SR 11-7):**
 # MAGIC 1. Model artifact lives in UC, governed alongside the data
-# MAGIC 2. Lineage is automatic — UC shows which tables fed the model
+# MAGIC 2. Lineage is automatic – UC shows which tables fed the model
 # MAGIC 3. Champion/Challenger via aliases (`@champion`, `@challenger`)
 # MAGIC 4. Lakehouse Monitoring tracks drift on the inference table
 # MAGIC 5. AI Gateway provides rate limits, audit, and PII redaction at the endpoint
 
 # COMMAND ----------
 
-dbutils.widgets.text("catalog", "axos_grc_demo", "Catalog")
+dbutils.widgets.text("catalog", "todaybank_grc_demo", "Catalog")
 CATALOG = dbutils.widgets.get("catalog")
 spark.sql(f"USE CATALOG {CATALOG}")
 
@@ -130,7 +130,7 @@ print(f"Set {MODEL_NAME} version {latest_version} as @champion")
 # COMMAND ----------
 
 # MAGIC %md
-# MAGIC ## Score all customers — write to gold inference table
+# MAGIC ## Score all customers – write to gold inference table
 # MAGIC
 # MAGIC In production this would be a streaming or scheduled job. For the demo we batch-score once.
 
@@ -158,7 +158,7 @@ print(f"✓ Scored {len(scoring_pdf):,} customers → gold.aml_risk_scores")
 # MAGIC The CLI version:
 # MAGIC ```
 # MAGIC databricks lakehouse-monitors create \
-# MAGIC   --table-name axos_grc_demo.gold.aml_risk_scores \
+# MAGIC   --table-name todaybank_grc_demo.gold.aml_risk_scores \
 # MAGIC   --inference-log-config '{...}'
 # MAGIC ```
 
@@ -167,4 +167,4 @@ print(f"✓ Scored {len(scoring_pdf):,} customers → gold.aml_risk_scores")
 # MAGIC %md
 # MAGIC ## Done
 # MAGIC
-# MAGIC Next: **`04_governance_walkthrough.py`** — show lineage, dynamic masking, and audit log queries.
+# MAGIC Next: **`04_governance_walkthrough.py`** – show lineage, dynamic masking, and audit log queries.

@@ -1,17 +1,17 @@
 # Databricks notebook source
 # MAGIC %md
-# MAGIC # 02 · AI Functions — Classify Complaints & Extract from KYC
+# MAGIC # 02 · AI Functions – Classify Complaints & Extract from KYC
 # MAGIC
-# MAGIC Demonstrates Databricks **AI Functions** (`ai_classify`, `ai_extract`) running in SQL against unstructured text — no model training required, governed via Unity Catalog, audited like any other query.
+# MAGIC Demonstrates Databricks **AI Functions** (`ai_classify`, `ai_extract`) running in SQL against unstructured text – no model training required, governed via Unity Catalog, audited like any other query.
 # MAGIC
 # MAGIC **Demo points:**
-# MAGIC 1. AI as a SQL primitive — analysts use it without leaving DBSQL
+# MAGIC 1. AI as a SQL primitive – analysts use it without leaving DBSQL
 # MAGIC 2. Governed via UC: every invocation logs to `system.access.audit`
 # MAGIC 3. Replaces the lost RAG/LLM UCO with a simpler, auditable pattern
 
 # COMMAND ----------
 
-dbutils.widgets.text("catalog", "axos_grc_demo", "Catalog")
+dbutils.widgets.text("catalog", "todaybank_grc_demo", "Catalog")
 CATALOG = dbutils.widgets.get("catalog")
 spark.sql(f"USE CATALOG {CATALOG}")
 
@@ -104,7 +104,7 @@ spark.sql(f"USE CATALOG {CATALOG}")
 # COMMAND ----------
 
 # MAGIC %sql
-# MAGIC -- For Act 4 — show that PEP matches are surfaced and reviewable
+# MAGIC -- For Act 4 – show that PEP matches are surfaced and reviewable
 # MAGIC CREATE OR REPLACE TABLE gold.kyc_pep_matches AS
 # MAGIC SELECT
 # MAGIC   k.kyc_doc_id,

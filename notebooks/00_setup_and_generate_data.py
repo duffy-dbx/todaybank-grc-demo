@@ -2,10 +2,10 @@
 # MAGIC %md
 # MAGIC # 00 · Setup & Generate Sample Data
 # MAGIC
-# MAGIC Creates the `axos_grc_demo` catalog, schemas, Unity Catalog tags, and populates synthetic GRC data.
+# MAGIC Creates the `todaybank_grc_demo` catalog, schemas, Unity Catalog tags, and populates synthetic GRC data.
 # MAGIC
 # MAGIC **Runtime:** ~3–5 minutes on a small serverless cluster.
-# MAGIC **Outputs:** `axos_grc_demo.bronze.*` tables ready for the Lakeflow Pipeline in notebook 01.
+# MAGIC **Outputs:** `todaybank_grc_demo.bronze.*` tables ready for the Lakeflow Pipeline in notebook 01.
 
 # COMMAND ----------
 
@@ -14,7 +14,7 @@
 
 # COMMAND ----------
 
-dbutils.widgets.text("catalog", "axos_grc_demo", "Catalog")
+dbutils.widgets.text("catalog", "todaybank_grc_demo", "Catalog")
 dbutils.widgets.text("storage_location", "", "External storage location (optional)")
 
 CATALOG = dbutils.widgets.get("catalog")
@@ -48,9 +48,9 @@ print(f"Created catalog '{CATALOG}' with schemas: bronze, silver, gold, audit")
 # COMMAND ----------
 
 # Tags will be applied to specific columns later. We define the catalog-level taxonomy here.
-# Catalog tag is best-effort — workspace tag policies may restrict allowed values.
+# Catalog tag is best-effort – workspace tag policies may restrict allowed values.
 try:
-    spark.sql(f"ALTER CATALOG {CATALOG} SET TAGS ('demo' = 'axos_grc')")
+    spark.sql(f"ALTER CATALOG {CATALOG} SET TAGS ('demo' = 'todaybank_grc')")
 except Exception as e:
     print(f"WARN: catalog tag skipped due to tag policy: {e}")
 
@@ -433,7 +433,7 @@ for i in range(200):
         state=random.choice(STATES),
         source=random.choice(SOURCES),
         income=random.randint(50000, 350000),
-        pep=random.choices(["clear", "match — escalated to compliance"], weights=[95, 5])[0],
+        pep=random.choices(["clear", "match – escalated to compliance"], weights=[95, 5])[0],
         biz_name=f"{random.choice(LAST_NAMES)} {random.choice(['LLC', 'Inc', 'Group', 'Partners'])}",
         industry=random.choice(INDUSTRIES),
         volume=random.randint(10000, 500000),
@@ -473,9 +473,9 @@ for i in range(5000):
     audit_events.append((
         f"AE{i:08d}",
         (datetime(2025, 5, 1) + timedelta(seconds=random.randint(0, 365 * 86400))),
-        random.choice([f"user{j}@axos.com" for j in range(50)]),
+        random.choice([f"user{j}@todaybank.com" for j in range(50)]),
         random.choice(ACTIONS_LIST),
-        random.choice([f"axos_grc_demo.silver.{t}" for t in ["customers_v", "transactions", "loans"]]),
+        random.choice([f"todaybank_grc_demo.silver.{t}" for t in ["customers_v", "transactions", "loans"]]),
         random.choice(["success", "denied"]),
     ))
 
