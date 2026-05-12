@@ -55,7 +55,7 @@ A 100-level Databricks demo for **TodayBank Bank** showcasing the Data Intellige
 
                           ┌──────────────────────────────────────┐
                           │      MLflow + Lakehouse Monitoring   │
-                          │   AML model · drift · SR 26-2 docs   │
+                          │   AML model · drift · SR 11-7 docs   │
                           └──────────────────────────────────────┘
 
  ┌──────────────────────────────────────────────────────────────────────────┐
