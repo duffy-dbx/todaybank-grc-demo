@@ -8,6 +8,7 @@ A 100-level Databricks demo for **Axos Bank** showcasing the Data Intelligence P
 
 - **Primary:** Risk Officers, Compliance Officers, BSA Officers, Model Risk Managers
 - **Secondary:** Data Platform Owners, Heads of Data, CDOs
+- **Persona demos:** Data Engineers (4 min), Marketing Analysts (4 min)
 - **Level:** 100 (broad capability overview, light on code deep-dives)
 
 ## Storyline (one-liner)
@@ -139,6 +140,10 @@ databricks bundle run setup_job --target dev
 
 Full speaker notes: [`docs/talk_track.md`](docs/talk_track.md). Click-through: [`docs/demo_flow.md`](docs/demo_flow.md).
 
+**Persona demos (4 min each):**
+- Data Engineers: [`docs/talk_track_data_engineer.md`](docs/talk_track_data_engineer.md)
+- Marketing Analysts: [`docs/talk_track_marketing.md`](docs/talk_track_marketing.md)
+
 ---
 
 ## What's in the sample data
@@ -153,20 +158,6 @@ Full speaker notes: [`docs/talk_track.md`](docs/talk_track.md). Click-through: [
 | `bronze.raw_audit_events` | 5,000 | System audit events |
 
 All synthetic. No real PII. Generated deterministically from a fixed seed for reproducibility.
-
----
-
-## Mapping to Axos's open UCOs
-
-| Axos UCO | Stage | This demo addresses it via |
-|---|---|---|
-| Axos - AI/BI (Tab/SSRS migration) | U3 | Act 5 — AI/BI Dashboard replacing SSRS |
-| Axos - BI Team - SQL Warehouse | U3 | Act 3 + Act 5 — DBSQL + dashboard |
-| Axos Commercial AI/BI | U3 | Act 5 — Genie for commercial analysts |
-| Axos Financial - SQL Migration | U3 | Act 2 — UC governance over migrated tables |
-| Marketing Analytics | U3 | (Adjacent — same dashboard pattern) |
-| **(Lost) Commercial Lending — Doc Audit Compliance** | Lost | Act 4 — `ai_extract` on KYC + lineage = retake |
-| **(Lost) RAG LLM for Customer Support** | Lost | Act 4 — Governed AI w/ MLflow = retake |
 
 ---
 
