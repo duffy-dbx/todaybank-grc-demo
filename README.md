@@ -13,7 +13,7 @@ A 100-level Databricks demo for **TodayBank Bank** showcasing the Data Intellige
 
 ## Storyline (one-liner)
 
-*"TodayBank's Risk Officer needs a single, governed view across structured transactions, semi-structured KYC documents, and unstructured customer complaints – without standing up three different tools, three different governance models, and three different AI black boxes. The same platform serves the data engineer who builds those pipelines and the marketing analyst who mines customer insights from them – one governance model, every persona."*
+*"TodayBank's Risk Officer needs a single, governed view across structured transactions, semi-structured KYC documents, and unstructured customer complaints without standing up three different tools, three different governance models, and three different AI black boxes. The same platform serves the data engineer who builds those pipelines and the marketing analyst who mines customer insights from them: one governance model, every persona."*
 
 ## What this demo proves
 
