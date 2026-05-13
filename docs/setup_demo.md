@@ -34,11 +34,10 @@ Files used during the talk:
 
 ### First-time deploy (run once, not before every demo)
 
-- [ ] Create the catalog: `databricks catalogs create todaybank_grc_demo --profile e2-demo-west`
-- [ ] `databricks bundle deploy --target dev` – creates jobs, pipeline definition, SQL warehouse
-- [ ] `databricks bundle deploy --target dev` should upload notebooks automatically. If notebooks are missing after deploy (verify with `databricks workspace list ".../dev/files"`), the bundle sync may be fighting the parent git repo — bypass it manually: `databricks workspace import-dir ./notebooks "/Workspace/Users/duffy.walsh@databricks.com/.bundle/todaybank-grc-demo/dev/files/notebooks" --profile e2-demo-west`
-- [ ] `databricks bundle run setup_job --target dev` – creates schemas, generates bronze data
-- [ ] `databricks bundle run pipeline_kickoff --target dev` – runs Bronze→Silver→Gold pipeline, then AI/ML notebooks (~20 min)
+- [ ] `databricks catalogs create todaybank_grc_demo --profile e2-demo-west`
+- [ ] `databricks bundle deploy --target dev`
+- [ ] `databricks bundle run setup_job --target dev`
+- [ ] `databricks bundle run pipeline_kickoff --target dev`
 - [ ] Import the dashboard: AI/BI → Dashboards → Import → select `dashboards/todaybank_grc_dashboard.lvdash.json`
 - [ ] Create the Genie space and point it at the four `gold.genie_*` views
 - [ ] In Genie space settings, paste General Instructions and 5 Sample Questions from `sql/genie_space_setup.sql` (lines 89–101) — public API doesn't expose these fields yet
