@@ -5,6 +5,8 @@
 
 bundle:
   name: todaybank-grc-demo
+  deployment:
+    kind: direct
 
 variables:
   catalog:
@@ -15,6 +17,10 @@ variables:
     default: ""
 
 resources:
+  catalogs:
+    demo_catalog:
+      name: ${var.catalog}
+
   sql_warehouses:
     demo_warehouse:
       name: "TodayBank GRC Demo Warehouse"
