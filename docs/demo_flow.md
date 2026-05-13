@@ -34,7 +34,7 @@ Files used during the talk:
 
 **First-time deploy only (run once, not before every demo):**
 
-- [ ] Create the catalog first (bundle deploy requires it to exist): `databricks catalogs create --name todaybank_grc_demo --profile e2-demo-west`
+- [ ] Create the catalog first (bundle deploy requires it to exist): `databricks catalogs create todaybank_grc_demo --profile e2-demo-west`
 - [ ] `databricks bundle deploy --target dev` – creates jobs, pipeline definition, SQL warehouse
 - [ ] `databricks bundle run setup_job --target dev` – creates catalog/schemas, generates bronze data
 - [ ] `databricks bundle run pipeline_kickoff --target dev` – runs Bronze→Silver→Gold pipeline, then AI/ML notebooks (wait ~20 min)
