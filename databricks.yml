@@ -9,6 +9,13 @@
 bundle:
   name: todaybank-grc-demo
 
+sync:
+  include:
+    - "notebooks/**"
+    - "sql/**"
+    - "dashboards/**"
+    - "docs/**"
+
 variables:
   catalog:
     description: "Unity Catalog to deploy the demo into"
