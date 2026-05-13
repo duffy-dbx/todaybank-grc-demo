@@ -6,13 +6,16 @@ Step-by-step click sequence with timing. Use alongside `talk_track.md`.
 
 ## Live assets on `e2-demo-field-eng`
 
-| Asset | Link |
+| Asset | Where to find it in the UI |
 |---|---|
-| Catalog | [`todaybank_grc_demo`](https://e2-demo-field-eng.cloud.databricks.com/explore/data/todaybank_grc_demo) |
-| Dashboard | [TodayBank GRC Operations Hub](https://e2-demo-field-eng.cloud.databricks.com/dashboardsv3/01f14e33aa4f1eac9fdbd4728db47513) (id `01f14e33aa4f1eac9fdbd4728db47513`) |
-| Genie space | [TodayBank GRC Operations Hub](https://e2-demo-field-eng.cloud.databricks.com/genie/rooms/01f14e4097ff1ce48bf2520f456ef9f6) (id `01f14e4097ff1ce48bf2520f456ef9f6`) |
-| Warehouse | `Shared Unity Catalog Serverless` (id `4b9b953939869799`) |
-| Workspace folder | `/Workspace/Users/duffy.walsh@databricks.com/todaybank_grc_demo` |
+| Catalog | Catalog Explorer → [`todaybank_grc_demo`](https://e2-demo-field-eng.cloud.databricks.com/explore/data/todaybank_grc_demo) |
+| Lakeflow Pipeline | Workflows → Delta Live Tables → `todaybank-grc-demo-pipeline` |
+| Setup Job | Workflows → Jobs → `TodayBank GRC Demo – Setup & Generate Data` |
+| Pipeline + AI + ML Job | Workflows → Jobs → `TodayBank GRC Demo – Run Pipeline + AI + ML` |
+| SQL Warehouse | SQL → Warehouses → `TodayBank GRC Demo Warehouse` |
+| Notebooks (bundle files) | Workspace → `/Workspace/Users/duffy.walsh@databricks.com/.bundle/todaybank-grc-demo/dev/files/notebooks/` |
+| Dashboard | AI/BI → Dashboards → [TodayBank GRC Operations Hub](https://e2-demo-field-eng.cloud.databricks.com/dashboardsv3/01f14e33aa4f1eac9fdbd4728db47513) |
+| Genie space | Genie → [TodayBank GRC Operations Hub](https://e2-demo-field-eng.cloud.databricks.com/genie/rooms/01f14e4097ff1ce48bf2520f456ef9f6) |
 
 Curated Gold views the Genie space points at:
 - [`gold.genie_customer_360`](https://e2-demo-field-eng.cloud.databricks.com/explore/data/todaybank_grc_demo/gold/genie_customer_360)
@@ -29,17 +32,22 @@ Files used during the talk:
 
 ## Setup checklist (do this 30 min before the demo)
 
-- [ ] Run `notebooks/00_setup_and_generate_data.py` end-to-end
-- [ ] Start the Lakeflow Pipeline from `notebooks/01_lakeflow_pipeline.py` and verify all tables built
-- [ ] Run `notebooks/02_ai_classify_and_extract.py` end-to-end (`silver.complaints_classified` must exist)
-- [ ] Run `notebooks/03_aml_model_mlflow.py` (model must be registered with `@champion` alias)
-- [ ] Run the dynamic-view cell in `notebooks/04_governance_walkthrough.py`
-- [x] Dashboard imported – open it once to warm the cache: <https://e2-demo-field-eng.cloud.databricks.com/dashboardsv3/01f14e33aa4f1eac9fdbd4728db47513>
-- [x] Genie space created – open it once to warm the cache: <https://e2-demo-field-eng.cloud.databricks.com/genie/rooms/01f14e4097ff1ce48bf2520f456ef9f6>
-- [ ] In the Genie space settings, paste General Instructions and 5 Sample Questions from `sql/genie_space_setup.sql` (lines 89–101). _Public API doesn't expose these fields yet._
-- [ ] Start the `Shared Unity Catalog Serverless` warehouse so Act 4's live `ai_classify` doesn't cold-start
+**First-time deploy only (run once, not before every demo):**
+
+- [ ] `databricks bundle deploy --target dev` – creates jobs, pipeline definition, SQL warehouse
+- [ ] `databricks bundle run setup_job --target dev` – creates catalog/schemas, generates bronze data
+- [ ] `databricks bundle run pipeline_kickoff --target dev` – runs Bronze→Silver→Gold pipeline, then AI/ML notebooks (wait ~20 min)
+- [ ] Import the dashboard: AI/BI → Dashboards → Import → select `dashboards/todaybank_grc_dashboard.lvdash.json`
+- [ ] Create the Genie space manually and point it at the four `gold.genie_*` views
+- [x] In the Genie space settings, paste General Instructions and 5 Sample Questions from `sql/genie_space_setup.sql` (lines 89–101). _Public API doesn't expose these fields yet._
+
+**Before every demo (30 min prior):**
+
+- [ ] Open dashboard once to warm the cache: <https://e2-demo-field-eng.cloud.databricks.com/dashboardsv3/01f14e33aa4f1eac9fdbd4728db47513>
+- [ ] Open Genie space once to warm the cache: <https://e2-demo-field-eng.cloud.databricks.com/genie/rooms/01f14e4097ff1ce48bf2520f456ef9f6>
+- [ ] Start the `TodayBank GRC Demo Warehouse` (SQL → Warehouses) so Act 4's live `ai_classify` doesn't cold-start
 - [ ] Open all 6 tabs in the order listed in `talk_track.md` Pre-flight
-- [ ] Test the audit-log query and the lineage popup – sometimes lineage takes ~5 min to populate after a fresh run
+- [ ] Test the audit-log query and the lineage popup – sometimes lineage takes ~5 min to populate after a fresh pipeline run
 
 ---
 

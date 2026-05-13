@@ -15,11 +15,30 @@ variables:
     default: ""
 
 resources:
+  sql_warehouses:
+    demo_warehouse:
+      name: "TodayBank GRC Demo Warehouse"
+      warehouse_type: PRO
+      enable_serverless_compute: true
+      cluster_size: "Small"
+      auto_stop_mins: 30
+      min_num_clusters: 1
+      max_num_clusters: 1
+
   jobs:
     setup_job:
       name: "TodayBank GRC Demo – Setup & Generate Data"
+      job_clusters:
+        - job_cluster_key: todaybank_grc_demo_cluster
+          new_cluster:
+            spark_version: 15.4.x-scala2.12
+            node_type_id: i3.xlarge
+            num_workers: 2
+            spark_conf:
+              spark.databricks.delta.preview.enabled: "true"
       tasks:
         - task_key: setup_data
+          job_cluster_key: todaybank_grc_demo_cluster
           notebook_task:
             notebook_path: ./notebooks/00_setup_and_generate_data.py
             base_parameters:
@@ -27,6 +46,12 @@ resources:
 
     pipeline_kickoff:
       name: "TodayBank GRC Demo – Run Pipeline + AI + ML"
+      job_clusters:
+        - job_cluster_key: todaybank_grc_demo_cluster
+          new_cluster:
+            spark_version: 15.4.x-scala2.12
+            node_type_id: i3.xlarge
+            num_workers: 2
       tasks:
         - task_key: run_pipeline
           pipeline_task:
@@ -34,6 +59,7 @@ resources:
         - task_key: ai_functions
           depends_on:
             - task_key: run_pipeline
+          job_cluster_key: todaybank_grc_demo_cluster
           notebook_task:
             notebook_path: ./notebooks/02_ai_classify_and_extract.py
             base_parameters:
@@ -41,6 +67,7 @@ resources:
         - task_key: aml_model
           depends_on:
             - task_key: ai_functions
+          job_cluster_key: todaybank_grc_demo_cluster
           notebook_task:
             notebook_path: ./notebooks/03_aml_model_mlflow.py
             base_parameters:
@@ -48,6 +75,7 @@ resources:
         - task_key: governance
           depends_on:
             - task_key: aml_model
+          job_cluster_key: todaybank_grc_demo_cluster
           notebook_task:
             notebook_path: ./notebooks/04_governance_walkthrough.py
             base_parameters:
