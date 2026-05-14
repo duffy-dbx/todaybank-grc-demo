@@ -39,6 +39,24 @@ Files used during the talk:
 - [ ] `databricks bundle run setup_job --target dev`
 - [ ] `databricks bundle run pipeline_kickoff --target dev`
 - [ ] Import the dashboard: AI/BI → Dashboards → Import → select `dashboards/todaybank_grc_dashboard.lvdash.json` → connect the `TodayBank GRC Demo Warehouse` in Dashboard Settings → click Run all to verify all tiles populate
+- [ ] Configure the 6 chart/table widgets manually (the 4 KPI counters configure automatically; the rest need field bindings set in the viz editor):
+
+  **Bar charts** — click widget → open viz editor → assign fields:
+
+  | Widget | X axis | Y axis |
+  |---|---|---|
+  | AML Alerts by Type | `alert_type` | `alert_count` |
+  | Risk Score Distribution | `risk_bucket` | `customer_count` |
+
+  **Line chart (Complaint Volume by Theme)** — `month` → X axis · `complaints` → Y axis · `theme` → Color/Group by
+
+  **Tables** — click each column name in the field list to add it:
+
+  | Widget | Columns |
+  |---|---|
+  | Fair Lending | `race`, `ethnicity`, `gender`, `loan_purpose`, `application_count`, `approval_rate_pct` |
+  | Top-Risk Customers | `full_name`, `state`, `kyc_risk_tier`, `aml_alert_count`, `aml_alert_total_usd`, `complaint_count`, `balance_usd` |
+  | PEP Matches | `full_name`, `document_date`, `occupation`, `source_of_funds`, `pep_status` |
 - [ ] Create the Genie space and point it at the four `gold.genie_*` views
 - [ ] In Genie space settings, paste General Instructions and 5 Sample Questions from `sql/genie_space_setup.sql` (lines 89–101) — public API doesn't expose these fields yet
 
