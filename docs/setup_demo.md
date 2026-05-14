@@ -57,7 +57,12 @@ Files used during the talk:
   | Fair Lending | `race`, `ethnicity`, `gender`, `loan_purpose`, `application_count`, `approval_rate_pct` |
   | Top-Risk Customers | `full_name`, `state`, `kyc_risk_tier`, `aml_alert_count`, `aml_alert_total_usd`, `complaint_count`, `balance_usd` |
   | PEP Matches | `full_name`, `document_date`, `occupation`, `source_of_funds`, `pep_status` |
-- [ ] Create the Genie space and point it at the four `gold.genie_*` views
+- [ ] Create the four curated Genie views: run lines 1–76 of `sql/genie_space_setup.sql` in the SQL editor (or `databricks sql execute --warehouse-id <id> --file sql/genie_space_setup.sql --profile e2-demo-west`)
+- [ ] Create the Genie space: Genie → New Genie space → name it `TodayBank GRC Operations Hub` → add the four tables below → set warehouse to `TodayBank GRC Demo Warehouse` → Save
+  - `todaybank_grc_demo.gold.genie_customer_360`
+  - `todaybank_grc_demo.gold.genie_aml_alerts`
+  - `todaybank_grc_demo.gold.genie_hmda`
+  - `todaybank_grc_demo.gold.genie_complaints`
 - [ ] In Genie space settings, paste General Instructions and 5 Sample Questions from `sql/genie_space_setup.sql` (lines 89–101) — public API doesn't expose these fields yet
 
 ### Before every demo (30 min prior)
