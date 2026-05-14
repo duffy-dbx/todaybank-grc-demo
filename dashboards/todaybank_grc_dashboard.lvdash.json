@@ -131,7 +131,9 @@
                   "displayName": "Open AML Alerts"
                 }
               }
-            }
+            },
+            "title": "Open AML Alerts",
+            "description": "Transactions flagged by the AML model in the last 30 days"
           },
           "position": {
             "x": 0,
@@ -166,7 +168,9 @@
                   "displayName": "High KYC Customers"
                 }
               }
-            }
+            },
+            "title": "High-Risk KYC Customers",
+            "description": "Customers currently assigned to the High KYC risk tier"
           },
           "position": {
             "x": 1,
@@ -201,7 +205,9 @@
                   "displayName": "HMDA Approval Rate (%)"
                 }
               }
-            }
+            },
+            "title": "HMDA Approval Rate",
+            "description": "Overall home loan approval rate across all applications"
           },
           "position": {
             "x": 2,
@@ -236,7 +242,9 @@
                   "displayName": "Complaints This Month"
                 }
               }
-            }
+            },
+            "title": "Complaints This Month",
+            "description": "Regulatory complaints received in the current calendar month"
           },
           "position": {
             "x": 3,
@@ -252,7 +260,21 @@
               {
                 "name": "main_query",
                 "query": {
-                  "datasetName": "aml_alerts_by_type"
+                  "datasetName": "aml_alerts_by_type",
+                  "fields": [
+                    {
+                      "name": "alert_type",
+                      "expression": "`alert_type`"
+                    },
+                    {
+                      "name": "alert_count",
+                      "expression": "`alert_count`"
+                    },
+                    {
+                      "name": "total_amount_usd",
+                      "expression": "`total_amount_usd`"
+                    }
+                  ]
                 }
               }
             ],
@@ -269,7 +291,9 @@
                   "displayName": "Alert Count"
                 }
               }
-            }
+            },
+            "title": "AML Alerts by Type",
+            "description": "Alert volume and total dollar amount by alert type, last 90 days"
           },
           "position": {
             "x": 0,
@@ -318,7 +342,9 @@
             "spec": {
               "version": 2,
               "widgetType": "table"
-            }
+            },
+            "title": "Fair Lending Heatmap",
+            "description": "HMDA loan approval rates by race, ethnicity, gender, and loan purpose \u2014 filtered to groups with \u226520 applications"
           },
           "position": {
             "x": 2,
@@ -334,7 +360,21 @@
               {
                 "name": "main_query",
                 "query": {
-                  "datasetName": "complaint_themes_ts"
+                  "datasetName": "complaint_themes_ts",
+                  "fields": [
+                    {
+                      "name": "month",
+                      "expression": "`month`"
+                    },
+                    {
+                      "name": "theme",
+                      "expression": "`theme`"
+                    },
+                    {
+                      "name": "complaints",
+                      "expression": "`complaints`"
+                    }
+                  ]
                 }
               }
             ],
@@ -355,7 +395,9 @@
                   "displayName": "Theme"
                 }
               }
-            }
+            },
+            "title": "Complaint Volume by Theme",
+            "description": "Monthly complaint trends broken down by AI-classified theme"
           },
           "position": {
             "x": 0,
@@ -371,7 +413,17 @@
               {
                 "name": "main_query",
                 "query": {
-                  "datasetName": "risk_score_distribution"
+                  "datasetName": "risk_score_distribution",
+                  "fields": [
+                    {
+                      "name": "risk_bucket",
+                      "expression": "`risk_bucket`"
+                    },
+                    {
+                      "name": "customer_count",
+                      "expression": "`customer_count`"
+                    }
+                  ]
                 }
               }
             ],
@@ -388,7 +440,9 @@
                   "displayName": "Customer Count"
                 }
               }
-            }
+            },
+            "title": "AML Risk Score Distribution",
+            "description": "Count of customers by model-assigned risk score bucket"
           },
           "position": {
             "x": 2,
@@ -445,7 +499,9 @@
             "spec": {
               "version": 2,
               "widgetType": "table"
-            }
+            },
+            "title": "Top-Risk Customers",
+            "description": "Customers with active AML alerts or high KYC tier and multiple complaints, ranked by total alert amount"
           },
           "position": {
             "x": 0,
@@ -494,7 +550,9 @@
             "spec": {
               "version": 2,
               "widgetType": "table"
-            }
+            },
+            "title": "PEP Matches",
+            "description": "Politically Exposed Persons surfaced by ai_extract on KYC narratives"
           },
           "position": {
             "x": 0,
