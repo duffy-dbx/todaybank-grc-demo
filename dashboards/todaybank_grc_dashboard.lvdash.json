@@ -105,16 +105,404 @@
       "name": "main",
       "displayName": "GRC Operations",
       "layout": [
-        {"widget": {"name": "w_open_aml_alerts", "queries": [{"name": "main_query", "query": {"datasetName": "kpi_open_aml_alerts", "fields": [{"name": "open_aml_alerts", "expression": "`open_aml_alerts`"}]}}], "spec": {"version": 2, "widgetType": "counter"}}, "position": {"x": 0, "y": 0, "width": 1, "height": 2}},
-        {"widget": {"name": "w_high_kyc", "queries": [{"name": "main_query", "query": {"datasetName": "kpi_high_kyc", "fields": [{"name": "high_kyc_customers", "expression": "`high_kyc_customers`"}]}}], "spec": {"version": 2, "widgetType": "counter"}}, "position": {"x": 1, "y": 0, "width": 1, "height": 2}},
-        {"widget": {"name": "w_approval_rate", "queries": [{"name": "main_query", "query": {"datasetName": "kpi_approval_rate", "fields": [{"name": "overall_approval_rate_pct", "expression": "`overall_approval_rate_pct`"}]}}], "spec": {"version": 2, "widgetType": "counter"}}, "position": {"x": 2, "y": 0, "width": 1, "height": 2}},
-        {"widget": {"name": "w_complaints_month", "queries": [{"name": "main_query", "query": {"datasetName": "kpi_complaints_month", "fields": [{"name": "complaints_this_month", "expression": "`complaints_this_month`"}]}}], "spec": {"version": 2, "widgetType": "counter"}}, "position": {"x": 3, "y": 0, "width": 1, "height": 2}},
-        {"widget": {"name": "w_aml_by_type", "queries": [{"name": "main_query", "query": {"datasetName": "aml_alerts_by_type"}}], "spec": {"version": 2, "widgetType": "bar"}}, "position": {"x": 0, "y": 2, "width": 2, "height": 4}},
-        {"widget": {"name": "w_fair_lending", "queries": [{"name": "main_query", "query": {"datasetName": "fair_lending_heatmap"}}], "spec": {"version": 2, "widgetType": "table"}}, "position": {"x": 2, "y": 2, "width": 2, "height": 4}},
-        {"widget": {"name": "w_complaints_ts", "queries": [{"name": "main_query", "query": {"datasetName": "complaint_themes_ts"}}], "spec": {"version": 2, "widgetType": "line"}}, "position": {"x": 0, "y": 6, "width": 2, "height": 4}},
-        {"widget": {"name": "w_risk_dist", "queries": [{"name": "main_query", "query": {"datasetName": "risk_score_distribution"}}], "spec": {"version": 2, "widgetType": "bar"}}, "position": {"x": 2, "y": 6, "width": 2, "height": 4}},
-        {"widget": {"name": "w_top_risk", "queries": [{"name": "main_query", "query": {"datasetName": "top_risk_customers"}}], "spec": {"version": 2, "widgetType": "table"}}, "position": {"x": 0, "y": 10, "width": 4, "height": 5}},
-        {"widget": {"name": "w_pep", "queries": [{"name": "main_query", "query": {"datasetName": "pep_matches"}}], "spec": {"version": 2, "widgetType": "table"}}, "position": {"x": 0, "y": 15, "width": 4, "height": 4}}
+        {
+          "widget": {
+            "name": "w_open_aml_alerts",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "kpi_open_aml_alerts",
+                  "fields": [
+                    {
+                      "name": "open_aml_alerts",
+                      "expression": "`open_aml_alerts`"
+                    }
+                  ]
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "open_aml_alerts",
+                  "displayName": "Open AML Alerts"
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 1,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "w_high_kyc",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "kpi_high_kyc",
+                  "fields": [
+                    {
+                      "name": "high_kyc_customers",
+                      "expression": "`high_kyc_customers`"
+                    }
+                  ]
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "high_kyc_customers",
+                  "displayName": "High KYC Customers"
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 1,
+            "y": 0,
+            "width": 1,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "w_approval_rate",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "kpi_approval_rate",
+                  "fields": [
+                    {
+                      "name": "overall_approval_rate_pct",
+                      "expression": "`overall_approval_rate_pct`"
+                    }
+                  ]
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "overall_approval_rate_pct",
+                  "displayName": "HMDA Approval Rate (%)"
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 2,
+            "y": 0,
+            "width": 1,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "w_complaints_month",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "kpi_complaints_month",
+                  "fields": [
+                    {
+                      "name": "complaints_this_month",
+                      "expression": "`complaints_this_month`"
+                    }
+                  ]
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "complaints_this_month",
+                  "displayName": "Complaints This Month"
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 3,
+            "y": 0,
+            "width": 1,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "w_aml_by_type",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "aml_alerts_by_type"
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "alert_type",
+                  "displayName": "Alert Type"
+                },
+                "y": {
+                  "fieldName": "alert_count",
+                  "displayName": "Alert Count"
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 2,
+            "width": 2,
+            "height": 4
+          }
+        },
+        {
+          "widget": {
+            "name": "w_fair_lending",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "fair_lending_heatmap",
+                  "fields": [
+                    {
+                      "name": "race",
+                      "expression": "`race`"
+                    },
+                    {
+                      "name": "ethnicity",
+                      "expression": "`ethnicity`"
+                    },
+                    {
+                      "name": "gender",
+                      "expression": "`gender`"
+                    },
+                    {
+                      "name": "loan_purpose",
+                      "expression": "`loan_purpose`"
+                    },
+                    {
+                      "name": "application_count",
+                      "expression": "`application_count`"
+                    },
+                    {
+                      "name": "approval_rate_pct",
+                      "expression": "`approval_rate_pct`"
+                    }
+                  ]
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "widgetType": "table"
+            }
+          },
+          "position": {
+            "x": 2,
+            "y": 2,
+            "width": 2,
+            "height": 4
+          }
+        },
+        {
+          "widget": {
+            "name": "w_complaints_ts",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "complaint_themes_ts"
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "widgetType": "line",
+              "encodings": {
+                "x": {
+                  "fieldName": "month",
+                  "displayName": "Month"
+                },
+                "y": {
+                  "fieldName": "complaints",
+                  "displayName": "Complaints"
+                },
+                "color": {
+                  "fieldName": "theme",
+                  "displayName": "Theme"
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 6,
+            "width": 2,
+            "height": 4
+          }
+        },
+        {
+          "widget": {
+            "name": "w_risk_dist",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "risk_score_distribution"
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "risk_bucket",
+                  "displayName": "Risk Score Bucket"
+                },
+                "y": {
+                  "fieldName": "customer_count",
+                  "displayName": "Customer Count"
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 2,
+            "y": 6,
+            "width": 2,
+            "height": 4
+          }
+        },
+        {
+          "widget": {
+            "name": "w_top_risk",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "top_risk_customers",
+                  "fields": [
+                    {
+                      "name": "customer_id",
+                      "expression": "`customer_id`"
+                    },
+                    {
+                      "name": "full_name",
+                      "expression": "`full_name`"
+                    },
+                    {
+                      "name": "state",
+                      "expression": "`state`"
+                    },
+                    {
+                      "name": "kyc_risk_tier",
+                      "expression": "`kyc_risk_tier`"
+                    },
+                    {
+                      "name": "aml_alert_count",
+                      "expression": "`aml_alert_count`"
+                    },
+                    {
+                      "name": "aml_alert_total_usd",
+                      "expression": "`aml_alert_total_usd`"
+                    },
+                    {
+                      "name": "complaint_count",
+                      "expression": "`complaint_count`"
+                    },
+                    {
+                      "name": "balance_usd",
+                      "expression": "`balance_usd`"
+                    }
+                  ]
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "widgetType": "table"
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 10,
+            "width": 4,
+            "height": 5
+          }
+        },
+        {
+          "widget": {
+            "name": "w_pep",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "pep_matches",
+                  "fields": [
+                    {
+                      "name": "kyc_doc_id",
+                      "expression": "`kyc_doc_id`"
+                    },
+                    {
+                      "name": "full_name",
+                      "expression": "`full_name`"
+                    },
+                    {
+                      "name": "document_date",
+                      "expression": "`document_date`"
+                    },
+                    {
+                      "name": "occupation",
+                      "expression": "`occupation`"
+                    },
+                    {
+                      "name": "source_of_funds",
+                      "expression": "`source_of_funds`"
+                    },
+                    {
+                      "name": "pep_status",
+                      "expression": "`pep_status`"
+                    }
+                  ]
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "widgetType": "table"
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 15,
+            "width": 4,
+            "height": 4
+          }
+        }
       ]
     }
   ]

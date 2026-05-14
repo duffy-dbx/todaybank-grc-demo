@@ -38,7 +38,7 @@ Files used during the talk:
 - [ ] `databricks bundle deploy --target dev`
 - [ ] `databricks bundle run setup_job --target dev`
 - [ ] `databricks bundle run pipeline_kickoff --target dev`
-- [ ] Import the dashboard: AI/BI → Dashboards → Import → select `dashboards/todaybank_grc_dashboard.lvdash.json`
+- [ ] Import the dashboard: AI/BI → Dashboards → Import → select `dashboards/todaybank_grc_dashboard.lvdash.json` → connect the `TodayBank GRC Demo Warehouse` in Dashboard Settings → click Run all to verify all tiles populate
 - [ ] Create the Genie space and point it at the four `gold.genie_*` views
 - [ ] In Genie space settings, paste General Instructions and 5 Sample Questions from `sql/genie_space_setup.sql` (lines 89–101) — public API doesn't expose these fields yet
 
