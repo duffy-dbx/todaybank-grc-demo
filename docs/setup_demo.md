@@ -70,5 +70,5 @@ Files used during the talk:
 - [ ] Open dashboard once to warm the cache: <https://e2-demo-field-eng.cloud.databricks.com/dashboardsv3/01f14e33aa4f1eac9fdbd4728db47513>
 - [ ] Open Genie space once to warm the cache: <https://e2-demo-field-eng.cloud.databricks.com/genie/rooms/01f14e4097ff1ce48bf2520f456ef9f6>
 - [ ] Start the `TodayBank GRC Demo Warehouse` (SQL → Warehouses) so Act 4's live `ai_classify` doesn't cold-start
-- [ ] Open all 6 tabs in the order listed in `demo_flow.md` Pre-flight
+- [ ] Open all 6 tabs in the order listed in `talk_track.md` Pre-flight section
 - [ ] Test the audit-log query and the lineage popup – lineage can take ~5 min to populate after a fresh pipeline run

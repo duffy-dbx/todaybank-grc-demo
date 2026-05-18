@@ -87,7 +87,10 @@ todaybank-grc-demo/
 │   └── todaybank_grc_dashboard.lvdash.json ← Lakeview dashboard definition
 └── docs/
     ├── talk_track.md                  ← Speaker notes by act
+    ├── talk_track_data_engineer.md    ← Data engineer persona (4 min)
+    ├── talk_track_marketing.md        ← Marketing analyst persona (4 min)
     ├── demo_flow.md                   ← Click-through flow with timing
+    ├── setup_demo.md                  ← First-time deploy + pre-demo checklist
     └── customer_takeaways.md          ← Leave-behind one-pager
 ```
 
@@ -142,7 +145,7 @@ databricks bundle run setup_job --target dev
 | **2. Governed Foundation** | 5 min | UC tree, PII tags, dynamic views, lineage, audit | One governance model |
 | **3. Pipelines That Just Work** | 7 min | Lakeflow Pipeline DAG, expectations, schema | Replace SSIS/Informatica |
 | **4. AI You Can Trust** | 8 min | AI Functions, MLflow registry, drift monitoring | SR 11-7 ready |
-| **5. Self-service for Business** | 5 min | AI/BI dashboard, Genie Q&A with SQL shown | Killer for BI mod UCO |
+| **5. Self-service for Business** | 5 min | AI/BI dashboard, Genie Q&A with SQL shown | Self-service without IT tickets |
 | **Q&A** | 5–10 min | – | – |
 
 Full speaker notes: [`docs/talk_track.md`](docs/talk_track.md). Click-through: [`docs/demo_flow.md`](docs/demo_flow.md).
@@ -170,6 +173,7 @@ All synthetic. No real PII. Generated deterministically from a fixed seed for re
 
 ## Talk track + demo flow
 
+- Setup + deploy checklist: [`docs/setup_demo.md`](docs/setup_demo.md)
 - Speaker notes: [`docs/talk_track.md`](docs/talk_track.md)
 - Click-through demo flow with timing: [`docs/demo_flow.md`](docs/demo_flow.md)
 - One-page customer leave-behind: [`docs/customer_takeaways.md`](docs/customer_takeaways.md)
